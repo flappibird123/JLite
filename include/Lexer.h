@@ -21,7 +21,7 @@ private:
     bool isAtEnd();
     char advance();
     void addToken(TokenType type);
-    void addToken(TokenType type, std::variant<std::monostate, double, std::string> literal);
+    void addToken(TokenType type, std::variant<std::monostate, double, std::string, bool> literal);
     char peek();
     char peekNext();
     bool match(char expected);

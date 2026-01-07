@@ -15,7 +15,7 @@ std::vector<Token> Lexer::scanTokens() {
         start = current;
         scanToken();
     }
-    tokens.push_back({END_OF_FILE, "", {}, line});
+    tokens.push_back(Token(END_OF_FILE, "", std::monostate{}, line));
     return tokens;
 }
 
@@ -74,9 +74,9 @@ bool Lexer::match(char expected) {
 
 void Lexer::addToken(TokenType type) { addToken(type, {}); }
 
-void Lexer::addToken(TokenType type, std::variant<std::monostate, double, std::string> literal) {
+void Lexer::addToken(TokenType type, std::variant<std::monostate, double, std::string, bool> literal) {
     std::string text = source.substr(start, current - start);
-    tokens.push_back({type, text, literal, line});
+    tokens.push_back(Token(type, text, literal, line));
 }
 
 void Lexer::identifier() {
