@@ -2,11 +2,30 @@
 #include "Parser.h"
 #include "Interpreter.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
-int main() {
-    // Now you can write code as a string!
-    std::string code = "var obj = new Node(); obj.val = 42; print obj.val;";
+int main(int argc, char* argv[]) {
 
+    if (argc < 2) {
+        std::cerr << "Usage: " << argv[0] << " <filename>\n";
+        return 1;
+    }
+
+    std::string filename = argv[1];
+    std::ifstream file(filename, std::ios::in | std::ios::binary);
+
+    if (!file) {  // check if file opened successfully
+        std::cerr << "Error: Could not open file " << filename << "\n";
+        return 1;
+    }
+    std::ostringstream buffer;
+    buffer << file.rdbuf();
+    std::string fileContents = buffer.str();
+
+    std::string code = fileContents;
+    
     Lexer lexer(code);
     std::vector<Token> tokens = lexer.scanTokens();
 
