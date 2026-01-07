@@ -26,6 +26,7 @@ JLite is a lightweight, dynamically typed, object-oriented programming language 
      cmake ..
      make
   ```
+
 3. Run the interpreter:
     ```bash
         ./jlite filename.jlite
